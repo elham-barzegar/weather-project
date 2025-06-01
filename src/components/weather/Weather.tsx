@@ -2,8 +2,9 @@ import {SearchForm} from "@/components/weather/SearchForm";
 import {WeatherInfo} from "@/components/weather/WeatherInfo";
 import {ForecastList} from "@/components/weather/ForecastList";
 import {useState} from "react";
-import {callWeatherApi} from "@/api/api";
-
+import {callForeCastApi, callWeatherApi} from "@/api/api";
+import {ForecastResponse} from "@/types/api/ForecastResponse";
+import PropTypes, {any} from 'prop-types';
 interface props{
     city: string,
 }
@@ -17,6 +18,7 @@ export function Weather ({city}:props){
         icon: '',
         daily: []
     })
+    const [forecastState, setForecastState] = useState<ForecastResponse | null>(null);
 
     const getWeatherData = async (city: string) => {
 
@@ -29,8 +31,13 @@ export function Weather ({city}:props){
                 icon: response.weather[0].icon,
                 daily: []
             };
-        setWeatherState(weather)
+        setWeatherState(weather);
         console.log(response)
+
+
+
+        const forecastResponse = await callForeCastApi({lat: response.coord.lat, lon: response.coord.lon})
+        setForecastState(forecastResponse);
     }
     if (weatherState.city.length === 0){
         getWeatherData(city)
@@ -41,7 +48,7 @@ export function Weather ({city}:props){
 
             <SearchForm city={city} getWeatherData={getWeatherData}/>
             <WeatherInfo weather={weatherState}/>
-            <ForecastList/>
+            {forecastState && <ForecastList forecast={forecastState}/>}
 
         </div>
     );

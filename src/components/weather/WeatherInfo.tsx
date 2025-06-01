@@ -10,10 +10,10 @@ export function WeatherInfo({weather}: Props) {
             <div>
                 <h1 className={"text-2xl"}>{weather.city}</h1>
                 <div>{weather.description}</div>
-                <div>Humidity: <span className={"text-primary"}>{weather.humidity}</span>, wind:<span className={"text-primary"}>{weather.wind}</span></div>
+                <div>Humidity: <span className={"text-primary"}>{weather.humidity}</span>, wind:<span className={"text-primary"}>{weather.wind} km/h </span></div>
             </div>
-            <div>
-                <WeatherIcon icon={weather.icon} size={36}/>
+            <div className={"flex justify-end"}>
+                <WeatherIcon icon={weather.icon} size={46}/>
             </div>
 
         </div>

@@ -8,8 +8,8 @@ interface weatherProps {
    city: string,
 }
  interface foreCastProps{
-   lon: string,
-    lat: string,
+   lon: number,
+    lat: number,
 
  }
 export async function callWeatherApi ({city}: weatherProps):Promise<WeatherResponse>{
@@ -21,8 +21,11 @@ export async function callWeatherApi ({city}: weatherProps):Promise<WeatherRespo
 
 export async function callForeCastApi ({lat, lon}:foreCastProps): Promise<ForecastResponse>
 {
-const response =await fetch(baseUrl + `forecast?=${lat}=35.6944&${lon}=51.4215&appid=${apiKey}&units=metric`);
+const response =await fetch(baseUrl + `forecast?lat=35.6944&lon=51.4215&appid=${apiKey}&units=metric`);
          // 7c203ef54293e2fcbbb07ae643908b2e
 
          return await response.json();
+    // https://api.openweathermap.org/data/2.5/forecast?lat=35.6944&lon=51.4215&appid=3dce9b1c66837262a25b3f448d354a76&units=metric
+
+
 }

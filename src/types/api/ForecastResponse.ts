@@ -5,32 +5,105 @@ export interface ForecastResponse {
     timezone: string,
     timezone_offset: number,
     humidity: number,
-    // hourly: Hourly[],
-    // daily: Daily[]
+    current: Current
+    hourly: Hourly[],
+    daily: Daily[],
 
 }
 
-interface tRoot {
-    cod: string
-    message: number
-    cnt: number
-    list: List[]
-    city: City
-}
-
-interface List {
+interface Current {
     dt: number
+    sunrise: number,
+    sunset:number,
+    temp: number,
     main: Main
-    weather: Weather[]
     clouds: Clouds
     wind: Wind
     visibility: number
     pop: number
     sys: Sys
     dt_txt: string
+    weather: Weather[]
+
 }
 
-interface Main {
+interface Weather{
+    id: number
+    main: string
+    description: string
+    icon: string
+}
+interface Hourly{
+    dt: number
+    sunrise: number,
+    sunset:number,
+    temp: number,
+    main: Main
+    clouds: Clouds
+    wind: Wind
+    visibility: number
+    pop: number
+    sys: Sys
+    dt_txt: string
+    weather: Weather2[]
+}
+
+interface Weather2 {
+    id: number
+    main: string
+    description: string
+    icon: string
+}
+export interface Daily{
+    dt: number
+    sunrise: number,
+    sunset:number,
+    moonrise: number
+    moonset: number
+    moon_phase: number
+    feels_like: feelsLike
+    temp: Temp,
+    main: Main
+    clouds: number
+    humidity: number
+    pressure: number
+    wind: Wind
+    wind_speed: number
+    visibility: number
+    pop: number
+    sys: Sys
+    dt_txt: string
+    weather: Weather3[]
+    rain?:number
+
+}
+export interface Temp{
+       day: number
+        min: number
+        max: number
+        night:number
+        eve: number
+        morn: number
+
+}
+
+interface feelsLike{
+    day: number
+    night:number
+    eve: number
+    morn: number
+}
+
+
+interface Weather3 {
+    id: number
+    main: string
+    description: string
+    icon: string
+}
+
+
+export interface Main {
     temp: number
     feels_like: number
     temp_min: number
@@ -42,12 +115,6 @@ interface Main {
     temp_kf: number
 }
 
-interface Weather {
-    id: number
-    main: string
-    description: string
-    icon: string
-}
 
 interface Clouds {
     all: number
@@ -111,12 +178,6 @@ type Main = {
     temp_kf: number;
 };
 
-type Weather = {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-};
 
 type Clouds = {
     all: number;
